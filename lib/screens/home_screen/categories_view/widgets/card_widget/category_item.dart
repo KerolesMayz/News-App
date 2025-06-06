@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news/core/data/data_model/news_categories/news_categories.dart';
-import 'package:news/core/screens/home_screen/widgets/card_widget/view_all_button.dart';
+import 'package:news/screens/home_screen/categories_view/widgets/card_widget/view_all_button.dart';
 
-class CardWidget extends StatelessWidget {
-  const CardWidget(
+import '../../../../../../models/category_model.dart';
+
+class CategoryItem extends StatelessWidget {
+  const CategoryItem(
       {super.key, required this.newsCategory, required this.index});
 
-  final NewsCategories newsCategory;
+  final CategoryModel newsCategory;
   final int index;
 
   @override
@@ -22,7 +23,7 @@ class CardWidget extends StatelessWidget {
             width: double.infinity,
           ),
         ),
-        ViewAllButton(index: index)
+        ViewAllButton(index: index, category: newsCategory)
       ],
     );
   }
