@@ -123,7 +123,7 @@ class HomeDrawer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16.r),
                       border:
                           Border.all(width: 1.h, color: ColorsManager.white)),
-                  child: DropdownMenu(
+                  child: const DropdownMenu(
                       initialSelection: 'en',
                       dropdownMenuEntries: [
                         DropdownMenuEntry(value: 'en', label: 'English'),

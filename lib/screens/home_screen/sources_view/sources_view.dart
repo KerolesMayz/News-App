@@ -11,7 +11,7 @@ class SourcesView extends StatelessWidget {
 
   final CategoryModel category;
 
-  static final List<SourceModel> sources = [
+  static const List<SourceModel> sources = [
     SourceModel(id: '1', name: 'ABC News'),
     SourceModel(id: '2', name: 'Arabia'),
     SourceModel(id: '3', name: 'BBC News'),
@@ -23,32 +23,32 @@ class SourcesView extends StatelessWidget {
     SourceModel(id: '3', name: 'BBC News'),
     SourceModel(id: '3', name: 'BBC News'),
   ];
-  static final List<ArticleModel> articles = [
-    const ArticleModel(
+  static const List<ArticleModel> articles = [
+    ArticleModel(
         author: 'Jon Haworth',
         title:
             '40-year-old man falls 200 feet to his death while canyoneering at national park',
         publishedAt: '15 minutes ago',
         imagePath: 'assets/images/Rectangle2.png'),
-    const ArticleModel(
+    ArticleModel(
         author: 'Jon Haworth',
         title:
             '40-year-old man falls 200 feet to his death while canyoneering at national park',
         publishedAt: '15 minutes ago',
         imagePath: 'assets/images/Rectangle2.png'),
-    const ArticleModel(
+    ArticleModel(
         author: 'Jon Haworth',
         title:
             '40-year-old man falls 200 feet to his death while canyoneering at national park',
         publishedAt: '15 minutes ago',
         imagePath: 'assets/images/Rectangle2.png'),
-    const ArticleModel(
+    ArticleModel(
         author: 'Jon Haworth',
         title:
             '40-year-old man falls 200 feet to his death while canyoneering at national park',
         publishedAt: '15 minutes ago',
         imagePath: 'assets/images/Rectangle2.png'),
-    const ArticleModel(
+    ArticleModel(
         author: 'Jon Haworth',
         title:
             '40-year-old man falls 200 feet to his death while canyoneering at national park',

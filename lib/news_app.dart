@@ -24,7 +24,7 @@ class NewsApp extends StatelessWidget {
         initialRoute: RoutesManager.home,
         themeMode: homeProvider.currentTheme,
         onGenerateRoute: RoutesManager.router,
-        locale: Locale('en'),
+        locale: const Locale('en'),
       ),
     );
   }

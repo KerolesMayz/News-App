@@ -19,10 +19,11 @@ class ThemeManager {
               fontWeight: FontWeight.w500,
               fontSize: 20.sp),
           inputDecorationTheme:
-              InputDecorationTheme(suffixIconColor: ColorsManager.white)),
+              const InputDecorationTheme(suffixIconColor: ColorsManager.white)),
       dividerColor: ColorsManager.white,
-      iconTheme: IconThemeData(color: ColorsManager.white),
-      drawerTheme: DrawerThemeData(backgroundColor: ColorsManager.black17),
+      iconTheme: const IconThemeData(color: ColorsManager.white),
+      drawerTheme:
+          const DrawerThemeData(backgroundColor: ColorsManager.black17),
       tabBarTheme: TabBarTheme(
         dividerColor: Colors.transparent,
         labelPadding: REdgeInsets.symmetric(horizontal: 16),
@@ -103,10 +104,11 @@ class ThemeManager {
               fontWeight: FontWeight.w500,
               fontSize: 20.sp),
           inputDecorationTheme:
-              InputDecorationTheme(suffixIconColor: ColorsManager.white)),
+              const InputDecorationTheme(suffixIconColor: ColorsManager.white)),
       dividerColor: ColorsManager.white,
-      iconTheme: IconThemeData(color: ColorsManager.white),
-      drawerTheme: DrawerThemeData(backgroundColor: ColorsManager.black17),
+      iconTheme: const IconThemeData(color: ColorsManager.white),
+      drawerTheme:
+          const DrawerThemeData(backgroundColor: ColorsManager.black17),
       tabBarTheme: TabBarTheme(
         dividerColor: Colors.transparent,
         labelPadding: REdgeInsets.symmetric(horizontal: 16),
