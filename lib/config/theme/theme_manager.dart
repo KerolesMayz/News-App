@@ -6,6 +6,7 @@ import '../../core/colors_manager/colors_manager.dart';
 
 class ThemeManager {
   static final ThemeData lightTheme = ThemeData(
+      primaryColor: ColorsManager.white,
       cardTheme: CardTheme(
         color: Colors.transparent,
         elevation: 0,
@@ -89,8 +90,30 @@ class ThemeManager {
               textStyle: GoogleFonts.inter(
                   fontWeight: FontWeight.w500, fontSize: 24.sp),
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(84.r)))));
+                  borderRadius: BorderRadius.circular(84.r)))),
+      searchBarTheme: SearchBarThemeData(
+        padding: MaterialStateProperty.all(EdgeInsets.zero),
+        textStyle: MaterialStateProperty.all(GoogleFonts.inter(
+          color: ColorsManager.black17,
+          fontWeight: FontWeight.w500,
+          fontSize: 20.sp,
+          height: 1.5.sp,
+        )),
+        hintStyle: MaterialStateProperty.all(GoogleFonts.inter(
+          color: ColorsManager.black17,
+          fontWeight: FontWeight.w500,
+          fontSize: 20.sp,
+          height: 1.5.sp,
+        )),
+        shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+        elevation: MaterialStateProperty.all(0),
+        backgroundColor: MaterialStateProperty.all(Colors.transparent),
+        side: MaterialStateProperty.all(
+            const BorderSide(width: 1, color: ColorsManager.black17)),
+      ));
   static final ThemeData darkTheme = ThemeData(
+      primaryColor: ColorsManager.black17,
       cardTheme: CardTheme(
         color: Colors.transparent,
         elevation: 0,
@@ -172,5 +195,25 @@ class ThemeManager {
               textStyle: GoogleFonts.inter(
                   fontWeight: FontWeight.w500, fontSize: 24.sp),
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(84.r)))));
+                  borderRadius: BorderRadius.circular(84.r)))),
+      searchBarTheme: SearchBarThemeData(
+          padding: MaterialStateProperty.all(EdgeInsets.zero),
+          textStyle: MaterialStateProperty.all(GoogleFonts.inter(
+            color: ColorsManager.white,
+            fontWeight: FontWeight.w500,
+            fontSize: 20.sp,
+            height: 1.5.sp,
+          )),
+          hintStyle: MaterialStateProperty.all(GoogleFonts.inter(
+            color: ColorsManager.white,
+            fontWeight: FontWeight.w500,
+            fontSize: 20.sp,
+            height: 1.5.sp,
+          )),
+          shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+          backgroundColor: MaterialStateProperty.all(Colors.transparent),
+          side: MaterialStateProperty.all(
+              const BorderSide(width: 1, color: ColorsManager.white)),
+          elevation: MaterialStateProperty.all(0)));
 }

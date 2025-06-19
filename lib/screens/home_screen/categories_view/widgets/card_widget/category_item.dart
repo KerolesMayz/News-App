@@ -23,7 +23,10 @@ class CategoryItem extends StatelessWidget {
             width: double.infinity,
           ),
         ),
-        ViewAllButton(index: index, category: newsCategory)
+        Padding(
+          padding: REdgeInsets.all(16),
+          child: ViewAllButton(index: index, category: newsCategory),
+        )
       ],
     );
   }

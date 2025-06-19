@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'news_app.dart';
 
-void main() {
+void main() async {
   runApp(ChangeNotifierProvider(
       create: (context) => HomeProvider(), child: const NewsApp()));
 }

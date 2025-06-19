@@ -9,7 +9,6 @@ import 'provider/home_provider.dart';
 
 class NewsApp extends StatelessWidget {
   const NewsApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     var homeProvider = Provider.of<HomeProvider>(context);

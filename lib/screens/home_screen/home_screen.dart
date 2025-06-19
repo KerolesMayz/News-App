@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news/core/routes_manager/routes_manager.dart';
 import 'package:news/provider/home_provider.dart';
 import 'package:news/screens/home_screen/widgets/home_drawer.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,9 @@ class HomeScreen extends StatelessWidget {
         title: Text(homeProvider.title ?? 'Home'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, RoutesManager.search);
+            },
             icon: const Icon(Icons.search_rounded),
           )
         ],

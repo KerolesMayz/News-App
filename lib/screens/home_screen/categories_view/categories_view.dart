@@ -11,13 +11,10 @@ class CategoriesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<CategoryModel> categories;
     var homeProvider = Provider.of<HomeProvider>(context);
-    if (homeProvider.currentTheme == ThemeMode.dark) {
-      categories = CategoryModel.categoriesDark;
-    } else {
-      categories = CategoryModel.categoriesLight;
-    }
+    List<CategoryModel> categories = homeProvider.currentTheme == ThemeMode.dark
+        ? CategoryModel.categoriesDark
+        : CategoryModel.categoriesLight;
     return Padding(
       padding: REdgeInsets.symmetric(horizontal: 16),
       child: Column(

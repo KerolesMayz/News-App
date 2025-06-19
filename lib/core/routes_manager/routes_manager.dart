@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:news/screens/search_screen/search_screen.dart';
 
 import '../../screens/home_screen/home_screen.dart';
-import '../../screens/search_screen/search_screen.dart';
 
 class RoutesManager {
   static const String home = '/home';

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/core/colors_manager/colors_manager.dart';
+import 'package:news/screens/home_screen/widgets/custom_drawer_item.dart';
+import 'package:news/screens/home_screen/widgets/custom_drop_down_menu.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/home_provider.dart';
@@ -32,20 +34,9 @@ class HomeDrawer extends StatelessWidget {
                     homeProvider.goToCategoriesView();
                     Navigator.pop(context);
                   },
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.home_outlined,
-                        size: 24.r,
-                      ),
-                      SizedBox(
-                        width: 12.w,
-                      ),
-                      Text(
-                        'Go To Home',
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      )
-                    ],
+                  child: const CustomDrawerItem(
+                    text: 'Go To Home',
+                    icon: Icons.home_outlined,
                   ),
                 ),
                 SizedBox(
@@ -55,43 +46,23 @@ class HomeDrawer extends StatelessWidget {
                 SizedBox(
                   height: 24.h,
                 ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.format_paint_outlined,
-                      size: 24.r,
-                    ),
-                    SizedBox(
-                      width: 12.w,
-                    ),
-                    Text(
-                      'Theme',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    )
-                  ],
-                ),
+                const CustomDrawerItem(
+                    text: 'Theme', icon: Icons.format_paint_outlined),
                 SizedBox(
                   height: 8.h,
                 ),
-                Container(
-                  padding: REdgeInsets.only(left: 16),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.r),
-                      border:
-                          Border.all(width: 1.h, color: ColorsManager.white)),
-                  child: DropdownMenu(
-                      onSelected: (theme) {
-                        homeProvider.changeTheme(theme);
-                      },
-                      initialSelection:
-                          homeProvider.currentTheme == ThemeMode.dark
-                              ? 'dark'
-                              : 'light',
-                      dropdownMenuEntries: const [
-                        DropdownMenuEntry(value: 'dark', label: 'Dark'),
-                        DropdownMenuEntry(value: 'light', label: 'Light'),
-                      ]),
-                ),
+                CustomDropDownMenu(
+                    onSelected: (theme) {
+                      homeProvider.changeTheme(theme!);
+                    },
+                    initialSelection:
+                        homeProvider.currentTheme == ThemeMode.dark
+                            ? 'dark'
+                            : 'light',
+                    dropdownMenuEntries: const [
+                      DropdownMenuEntry(value: 'dark', label: 'Dark'),
+                      DropdownMenuEntry(value: 'light', label: 'Light'),
+                    ]),
                 SizedBox(
                   height: 24.h,
                 ),
@@ -99,37 +70,16 @@ class HomeDrawer extends StatelessWidget {
                 SizedBox(
                   height: 24.h,
                 ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.public,
-                      size: 24.r,
-                    ),
-                    SizedBox(
-                      width: 12.w,
-                    ),
-                    Text(
-                      'Language',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    )
-                  ],
-                ),
+                const CustomDrawerItem(text: 'Language', icon: Icons.public),
                 SizedBox(
                   height: 8.h,
                 ),
-                Container(
-                  padding: REdgeInsets.only(left: 16),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.r),
-                      border:
-                          Border.all(width: 1.h, color: ColorsManager.white)),
-                  child: const DropdownMenu(
-                      initialSelection: 'en',
-                      dropdownMenuEntries: [
-                        DropdownMenuEntry(value: 'en', label: 'English'),
-                        DropdownMenuEntry(value: 'ar', label: 'Arabic'),
-                      ]),
-                ),
+                const CustomDropDownMenu(
+                    initialSelection: 'en',
+                    dropdownMenuEntries: [
+                      DropdownMenuEntry(value: 'en', label: 'English'),
+                      DropdownMenuEntry(value: 'ar', label: 'Arabic'),
+                    ]),
               ],
             ),
           )

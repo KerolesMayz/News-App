@@ -20,7 +20,15 @@ class CategoryModel {
     CategoryModel(
         id: 'technology',
         title: 'Technology',
-        imagePath: AssetsManager.technologyDark)
+        imagePath: AssetsManager.technologyDark),
+    CategoryModel(
+        id: 'entertainment',
+        title: 'Entertainment',
+        imagePath: AssetsManager.entertainmentDark),
+    CategoryModel(
+        id: 'health', title: 'Health', imagePath: AssetsManager.healthDark),
+    CategoryModel(
+        id: 'science', title: 'Science', imagePath: AssetsManager.scienceDark)
   ];
   static List<CategoryModel> categoriesLight = const [
     CategoryModel(
@@ -34,6 +42,14 @@ class CategoryModel {
     CategoryModel(
         id: 'technology',
         title: 'Technology',
-        imagePath: AssetsManager.technologyLight)
+        imagePath: AssetsManager.technologyLight),
+    CategoryModel(
+        id: 'entertainment',
+        title: 'Entertainment',
+        imagePath: AssetsManager.entertainmentLight),
+    CategoryModel(
+        id: 'health', title: 'Health', imagePath: AssetsManager.healthLight),
+    CategoryModel(
+        id: 'science', title: 'Science', imagePath: AssetsManager.scienceLight)
   ];
 }

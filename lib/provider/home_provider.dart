@@ -5,7 +5,7 @@ import 'package:news/screens/home_screen/sources_view/sources_view.dart';
 
 class HomeProvider extends ChangeNotifier {
   Widget view = const CategoriesView();
-  ThemeMode currentTheme = ThemeMode.dark;
+  ThemeMode currentTheme = ThemeMode.light;
   String? title;
 
   void goToSourcesView(CategoryModel category) {
@@ -14,14 +14,11 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeTheme(String? theme) {
-    if (theme == 'dark') {
-      currentTheme = ThemeMode.dark;
-      notifyListeners();
-    } else if (theme == 'light') {
-      currentTheme = ThemeMode.light;
-      notifyListeners();
-    }
+  void changeTheme(String theme) async {
+    ThemeMode newTheme = theme == 'dark' ? ThemeMode.dark : ThemeMode.light;
+    if (newTheme == currentTheme) return;
+    currentTheme = newTheme;
+    notifyListeners();
   }
 
   void goToCategoriesView() {

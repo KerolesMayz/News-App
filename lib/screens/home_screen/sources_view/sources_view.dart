@@ -1,91 +1,94 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news/provider/articles_provider.dart';
+import 'package:news/provider/sources_view_provider.dart';
+import 'package:news/screens/home_screen/sources_view/widgets/custom_list_view.dart';
+import 'package:news/screens/home_screen/sources_view/widgets/custom_tab_bar.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../models/article_model.dart';
-import '../../../../models/source_model.dart';
+import '../../../core/widgets/error_state_widget.dart';
 import '../../../models/category_model.dart';
-import 'widgets/article.dart';
 
-class SourcesView extends StatelessWidget {
+class SourcesView extends StatefulWidget {
   const SourcesView({super.key, required this.category});
 
   final CategoryModel category;
 
-  static const List<SourceModel> sources = [
-    SourceModel(id: '1', name: 'ABC News'),
-    SourceModel(id: '2', name: 'Arabia'),
-    SourceModel(id: '3', name: 'BBC News'),
-    SourceModel(id: '1', name: 'ABC News'),
-    SourceModel(id: '2', name: 'Arabia'),
-    SourceModel(id: '3', name: 'BBC News'),
-    SourceModel(id: '1', name: 'ABC News'),
-    SourceModel(id: '2', name: 'Arabia'),
-    SourceModel(id: '3', name: 'BBC News'),
-    SourceModel(id: '3', name: 'BBC News'),
-  ];
-  static const List<ArticleModel> articles = [
-    ArticleModel(
-        author: 'Jon Haworth',
-        title:
-            '40-year-old man falls 200 feet to his death while canyoneering at national park',
-        publishedAt: '15 minutes ago',
-        imagePath: 'assets/images/Rectangle2.png'),
-    ArticleModel(
-        author: 'Jon Haworth',
-        title:
-            '40-year-old man falls 200 feet to his death while canyoneering at national park',
-        publishedAt: '15 minutes ago',
-        imagePath: 'assets/images/Rectangle2.png'),
-    ArticleModel(
-        author: 'Jon Haworth',
-        title:
-            '40-year-old man falls 200 feet to his death while canyoneering at national park',
-        publishedAt: '15 minutes ago',
-        imagePath: 'assets/images/Rectangle2.png'),
-    ArticleModel(
-        author: 'Jon Haworth',
-        title:
-            '40-year-old man falls 200 feet to his death while canyoneering at national park',
-        publishedAt: '15 minutes ago',
-        imagePath: 'assets/images/Rectangle2.png'),
-    ArticleModel(
-        author: 'Jon Haworth',
-        title:
-            '40-year-old man falls 200 feet to his death while canyoneering at national park',
-        publishedAt: '15 minutes ago',
-        imagePath: 'assets/images/Rectangle2.png'),
-  ];
+  @override
+  State<SourcesView> createState() => _SourcesViewState();
+}
+
+class _SourcesViewState extends State<SourcesView> {
+  late SourcesViewProvider _sourcesViewProvider;
+  late ArticlesProvider _articlesProvider;
+
+  void loadData() async {
+    _sourcesViewProvider = SourcesViewProvider();
+    _articlesProvider = ArticlesProvider();
+    await _sourcesViewProvider.loadSources(widget.category);
+    await _articlesProvider.loadArticles(_sourcesViewProvider.firstSource);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        DefaultTabController(
-          length: 10,
-          child: TabBar(
-              isScrollable: true,
-              tabs: sources
-                  .map((source) => Tab(
-                        text: source.name,
-                      ))
-                  .toList()),
-        ),
-        Expanded(
-            child: ListView.separated(
-                padding: REdgeInsets.all(16),
-                itemBuilder: (context, index) {
-                  return ArticleItem(
-                    article: articles[index],
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return SizedBox(
-                    height: 16.h,
-                  );
-                },
-                itemCount: articles.length))
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: _sourcesViewProvider),
+        ChangeNotifierProvider.value(value: _articlesProvider)
       ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Consumer<SourcesViewProvider>(
+            builder: (context, viewModel, child) {
+              SourcesState state = viewModel.state;
+              switch (state) {
+                case SourcesLoadingState():
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                case SourcesErrorState():
+                  return ErrorStateWidget(
+                    exception: state.exception,
+                    serverError: state.serverError,
+                  );
+                case SourcesSuccessState():
+                  return CustomTabBar(
+                    sources: state.sources,
+                    onTap: (index) {
+                      _articlesProvider.loadArticles(state.sources[index]);
+                    },
+                  );
+              }
+            },
+          ),
+          Consumer<ArticlesProvider>(
+            builder: (context, articlesProvider, child) {
+              ArticlesState state = articlesProvider.state;
+              switch (state) {
+                case ArticlesSuccessState():
+                  return CustomListView(articles: state.article);
+                case ArticlesLoadingState():
+                  return const Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                case ArticlesErrorState():
+                  return ErrorStateWidget(
+                    exception: state.exception,
+                    serverError: state.serverError,
+                  );
+              }
+            },
+          )
+        ],
+      ),
     );
   }
 }
