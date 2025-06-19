@@ -5,6 +5,10 @@ import 'package:provider/provider.dart';
 import 'news_app.dart';
 
 void main() async {
-  runApp(ChangeNotifierProvider(
-      create: (context) => HomeProvider(), child: const NewsApp()));
+  WidgetsFlutterBinding.ensureInitialized();
+  final HomeProvider homeProvider = HomeProvider();
+  await homeProvider.loadThemeFromPrefs();
+  await homeProvider.loadLangFromPrefs();
+  runApp(ChangeNotifierProvider.value(
+      value: homeProvider, child: const NewsApp()));
 }

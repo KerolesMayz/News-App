@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/config/theme/theme_manager.dart';
 import 'package:news/core/extension/context_extension.dart';
@@ -18,12 +19,14 @@ class NewsApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: const [Locale('en'), Locale('ar')],
         theme: ThemeManager.lightTheme,
         darkTheme: ThemeManager.darkTheme,
         initialRoute: RoutesManager.home,
         themeMode: homeProvider.currentTheme,
         onGenerateRoute: RoutesManager.router,
-        locale: const Locale('en'),
+        locale: Locale(homeProvider.currentLang),
       ),
     );
   }

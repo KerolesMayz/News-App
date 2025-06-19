@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news/core/routes_manager/routes_manager.dart';
 import 'package:news/provider/home_provider.dart';
 import 'package:news/screens/home_screen/widgets/home_drawer.dart';
@@ -13,7 +14,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       drawer: const HomeDrawer(),
       appBar: AppBar(
-        title: Text(homeProvider.title ?? 'Home'),
+        title: Text(homeProvider.title ?? AppLocalizations.of(context)!.home),
         actions: [
           IconButton(
             onPressed: () {

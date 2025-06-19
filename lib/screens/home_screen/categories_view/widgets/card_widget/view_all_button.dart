@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/core/constants_manager.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,7 @@ class ViewAllButton extends StatelessWidget {
                   Padding(
                     padding:
                         REdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    child: const Text('View All'),
+                    child: Text(AppLocalizations.of(context)!.view_all),
                   ),
                   CircleAvatar(
                     foregroundColor: ConstantsManager.getContrastingColor(
@@ -66,7 +67,7 @@ class ViewAllButton extends StatelessWidget {
                   Padding(
                     padding:
                         REdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    child: const Text('View All'),
+                    child: Text(AppLocalizations.of(context)!.view_all),
                   ),
                 ],
               ),

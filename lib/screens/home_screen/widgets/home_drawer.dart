@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/core/colors_manager/colors_manager.dart';
 import 'package:news/screens/home_screen/widgets/custom_drawer_item.dart';
@@ -34,8 +35,8 @@ class HomeDrawer extends StatelessWidget {
                     homeProvider.goToCategoriesView();
                     Navigator.pop(context);
                   },
-                  child: const CustomDrawerItem(
-                    text: 'Go To Home',
+                  child: CustomDrawerItem(
+                    text: AppLocalizations.of(context)!.go_to_home,
                     icon: Icons.home_outlined,
                   ),
                 ),
@@ -46,22 +47,29 @@ class HomeDrawer extends StatelessWidget {
                 SizedBox(
                   height: 24.h,
                 ),
-                const CustomDrawerItem(
-                    text: 'Theme', icon: Icons.format_paint_outlined),
+                CustomDrawerItem(
+                    text: AppLocalizations.of(context)!.theme,
+                    icon: Icons.format_paint_outlined),
                 SizedBox(
                   height: 8.h,
                 ),
                 CustomDropDownMenu(
+                    key: ValueKey(homeProvider.currentLang),
                     onSelected: (theme) {
                       homeProvider.changeTheme(theme!);
+                      homeProvider.toggleTheme(theme);
                     },
                     initialSelection:
                         homeProvider.currentTheme == ThemeMode.dark
                             ? 'dark'
                             : 'light',
-                    dropdownMenuEntries: const [
-                      DropdownMenuEntry(value: 'dark', label: 'Dark'),
-                      DropdownMenuEntry(value: 'light', label: 'Light'),
+                    dropdownMenuEntries: [
+                      DropdownMenuEntry(
+                          value: 'dark',
+                          label: AppLocalizations.of(context)!.dark),
+                      DropdownMenuEntry(
+                          value: 'light',
+                          label: AppLocalizations.of(context)!.light),
                     ]),
                 SizedBox(
                   height: 24.h,
@@ -70,15 +78,22 @@ class HomeDrawer extends StatelessWidget {
                 SizedBox(
                   height: 24.h,
                 ),
-                const CustomDrawerItem(text: 'Language', icon: Icons.public),
+                CustomDrawerItem(
+                    text: AppLocalizations.of(context)!.language,
+                    icon: Icons.public),
                 SizedBox(
                   height: 8.h,
                 ),
-                const CustomDropDownMenu(
-                    initialSelection: 'en',
-                    dropdownMenuEntries: [
+                CustomDropDownMenu(
+                    onSelected: (newLang) {
+                      homeProvider.changeLang(newLang!);
+                      homeProvider.toggleLang(newLang);
+                    },
+                    initialSelection:
+                        homeProvider.currentLang == 'en' ? 'en' : 'ar',
+                    dropdownMenuEntries: const [
                       DropdownMenuEntry(value: 'en', label: 'English'),
-                      DropdownMenuEntry(value: 'ar', label: 'Arabic'),
+                      DropdownMenuEntry(value: 'ar', label: 'العربية'),
                     ]),
               ],
             ),

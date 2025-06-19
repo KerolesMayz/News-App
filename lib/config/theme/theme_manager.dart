@@ -21,8 +21,18 @@ class ThemeManager {
               color: ColorsManager.white,
               fontWeight: FontWeight.w500,
               fontSize: 20.sp),
-          inputDecorationTheme:
-              const InputDecorationTheme(suffixIconColor: ColorsManager.white)),
+        inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide: const BorderSide(color: ColorsManager.white)),
+            suffixIconColor: ColorsManager.white,
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide: const BorderSide(color: ColorsManager.white)),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide: const BorderSide(color: ColorsManager.white))),
+      ),
       dividerColor: ColorsManager.white,
       iconTheme: const IconThemeData(color: ColorsManager.white),
       drawerTheme:
@@ -130,8 +140,18 @@ class ThemeManager {
               color: ColorsManager.white,
               fontWeight: FontWeight.w500,
               fontSize: 20.sp),
-          inputDecorationTheme:
-              const InputDecorationTheme(suffixIconColor: ColorsManager.white)),
+        inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide: const BorderSide(color: ColorsManager.white)),
+            suffixIconColor: ColorsManager.white,
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide: const BorderSide(color: ColorsManager.white)),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(16.r),
+                borderSide: const BorderSide(color: ColorsManager.white))),
+      ),
       dividerColor: ColorsManager.white,
       iconTheme: const IconThemeData(color: ColorsManager.white),
       drawerTheme:

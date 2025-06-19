@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/core/constants_manager.dart';
 import 'package:news/core/widgets/custom_button.dart';
@@ -63,7 +64,7 @@ class ViewFullArticle extends StatelessWidget {
               children: [
                 Expanded(
                     child: CustomButton(
-                  text: 'View Full Article',
+                  text: AppLocalizations.of(context)!.view_full_article,
                   onPressed: () {
                     _launchUrl(article.url ?? '');
                     Navigator.pop(context);

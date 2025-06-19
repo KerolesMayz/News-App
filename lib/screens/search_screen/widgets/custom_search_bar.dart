@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/core/constants_manager.dart';
 
@@ -43,7 +44,7 @@ class CustomSearchBar extends StatelessWidget {
           ),
         )
       ],
-      hintText: 'Search',
+      hintText: AppLocalizations.of(context)!.search,
     );
   }
 }
