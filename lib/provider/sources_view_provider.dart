@@ -25,7 +25,7 @@ class SourcesViewProvider extends ChangeNotifier {
       case ServerError<List<Source>>():
         emit(SourcesErrorState(serverError: result));
       case GeneralException<List<Source>>():
-        emit(SourcesErrorState(exception: result));
+        emit(SourcesErrorState(exception: result.exception));
     }
   }
 }
@@ -46,7 +46,7 @@ class SourcesLoadingState extends SourcesState {
 
 class SourcesErrorState extends SourcesState {
   ServerError? serverError;
-  GeneralException? exception;
+  Exception? exception;
 
   SourcesErrorState({this.serverError, this.exception});
 }

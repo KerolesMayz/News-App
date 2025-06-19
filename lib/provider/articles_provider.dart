@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../api_services/api_services.dart';
@@ -19,7 +21,7 @@ class ArticlesProvider extends ChangeNotifier {
       notifyListeners();
     }
     if (source.id == null) {
-      emit(ArticlesErrorState());
+      emit(ArticlesErrorState(exception: const HttpException('bad request')));
       return;
     }
     Result<List<Article>> result = await ApiServices.getArticles(source);
@@ -29,7 +31,7 @@ class ArticlesProvider extends ChangeNotifier {
       case ServerError<List<Article>>():
         emit(ArticlesErrorState(serverError: result));
       case GeneralException<List<Article>>():
-        emit(ArticlesErrorState(exception: result));
+        emit(ArticlesErrorState(exception: result.exception));
     }
   }
 }
@@ -50,7 +52,7 @@ class ArticlesLoadingState extends ArticlesState {
 
 class ArticlesErrorState extends ArticlesState {
   ServerError? serverError;
-  GeneralException? exception;
+  Exception? exception;
 
   ArticlesErrorState({this.serverError, this.exception});
 }

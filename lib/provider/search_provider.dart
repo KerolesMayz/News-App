@@ -28,7 +28,7 @@ class SearchProvider extends ChangeNotifier {
         case ServerError<List<Article>>():
           emit(ArticlesErrorState(serverError: result));
         case GeneralException<List<Article>>():
-          emit(ArticlesErrorState(exception: result));
+          emit(ArticlesErrorState(exception: result.exception));
       }
     }
   }

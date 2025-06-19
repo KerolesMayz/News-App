@@ -6,6 +6,8 @@ import '../../core/colors_manager/colors_manager.dart';
 
 class ThemeManager {
   static final ThemeData lightTheme = ThemeData(
+      progressIndicatorTheme:
+          const ProgressIndicatorThemeData(color: ColorsManager.black17),
       primaryColor: ColorsManager.white,
       cardTheme: CardTheme(
         color: Colors.transparent,
@@ -113,6 +115,8 @@ class ThemeManager {
             const BorderSide(width: 1, color: ColorsManager.black17)),
       ));
   static final ThemeData darkTheme = ThemeData(
+      progressIndicatorTheme:
+          const ProgressIndicatorThemeData(color: ColorsManager.white),
       primaryColor: ColorsManager.black17,
       cardTheme: CardTheme(
         color: Colors.transparent,

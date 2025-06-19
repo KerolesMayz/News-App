@@ -6,7 +6,6 @@ import 'package:news/screens/home_screen/sources_view/widgets/custom_list_view.d
 import 'package:news/screens/search_screen/widgets/custom_search_bar.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/constants_manager.dart';
 import '../../core/widgets/error_state_widget.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -82,11 +81,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     case ArticlesSuccessState():
                       return CustomListView(articles: state.article);
                     case ArticlesLoadingState():
-                      return Expanded(
+                      return const Expanded(
                         child: Center(
                           child: CircularProgressIndicator(
-                            color: ConstantsManager.getContrastingColor(
-                                Theme.of(context).primaryColor),
                           ),
                         ),
                       );
