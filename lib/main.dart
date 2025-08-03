@@ -9,6 +9,7 @@ void main() async {
   final HomeProvider homeProvider = HomeProvider();
   await homeProvider.loadThemeFromPrefs();
   await homeProvider.loadLangFromPrefs();
-  runApp(ChangeNotifierProvider.value(
-      value: homeProvider, child: const NewsApp()));
+  runApp(
+    ChangeNotifierProvider.value(value: homeProvider, child: const NewsApp()),
+  );
 }

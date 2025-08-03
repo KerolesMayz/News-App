@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news/core/routes_manager/routes_manager.dart';
 import 'package:news/provider/home_provider.dart';
 import 'package:news/screens/home_screen/widgets/home_drawer.dart';
 import 'package:provider/provider.dart';
+import '../../l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
               Navigator.pushNamed(context, RoutesManager.search);
             },
             icon: const Icon(Icons.search_rounded),
-          )
+          ),
         ],
       ),
       body: homeProvider.view,

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDropDownMenu extends StatelessWidget {
-  const CustomDropDownMenu(
-      {super.key,
-      this.onSelected,
-      this.initialSelection,
-      required this.dropdownMenuEntries});
+  const CustomDropDownMenu({
+    super.key,
+    this.onSelected,
+    this.initialSelection,
+    required this.dropdownMenuEntries,
+  });
 
   final void Function(String?)? onSelected;
   final String? initialSelection;
@@ -15,9 +16,10 @@ class CustomDropDownMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownMenu(
-        width: 269.w - 32.r,
-        onSelected: onSelected,
-        initialSelection: initialSelection,
-        dropdownMenuEntries: dropdownMenuEntries);
+      width: 269.w - 32.r,
+      onSelected: onSelected,
+      initialSelection: initialSelection,
+      dropdownMenuEntries: dropdownMenuEntries,
+    );
   }
 }

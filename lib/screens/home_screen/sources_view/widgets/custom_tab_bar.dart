@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../models/sources_response/source.dart';
+import '../../../../data/models/sources_response/source.dart';
 
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar({super.key, required this.sources, required this.onTap});
@@ -14,13 +14,10 @@ class CustomTabBar extends StatelessWidget {
       initialIndex: 0,
       length: sources.length,
       child: TabBar(
-          onTap: onTap,
-          isScrollable: true,
-          tabs: sources
-              .map((source) => Tab(
-                    text: source.name,
-                  ))
-              .toList()),
+        onTap: onTap,
+        isScrollable: true,
+        tabs: sources.map((source) => Tab(text: source.name)).toList(),
+      ),
     );
   }
 }

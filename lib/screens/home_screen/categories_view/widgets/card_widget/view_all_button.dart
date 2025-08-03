@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/core/constants_manager.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../models/category_model.dart';
+import '../../../../../data/models/category_model.dart';
+import '../../../../../l10n/app_localizations.dart';
 import '../../../../../provider/home_provider.dart';
 
 class ViewAllButton extends StatelessWidget {
@@ -27,20 +27,20 @@ class ViewAllButton extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding:
-                        REdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    padding: REdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
                     child: Text(AppLocalizations.of(context)!.view_all),
                   ),
                   CircleAvatar(
                     foregroundColor: ConstantsManager.getContrastingColor(
-                        Theme.of(context).primaryColor),
+                      Theme.of(context).primaryColor,
+                    ),
                     radius: 30.r,
                     backgroundColor: Theme.of(context).primaryColor,
-                    child: Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 24.r,
-                    ),
-                  )
+                    child: Icon(Icons.arrow_forward_ios_rounded, size: 24.r),
+                  ),
                 ],
               ),
             ),
@@ -57,16 +57,16 @@ class ViewAllButton extends StatelessWidget {
                   CircleAvatar(
                     radius: 30.r,
                     foregroundColor: ConstantsManager.getContrastingColor(
-                        Theme.of(context).primaryColor),
-                    backgroundColor: Theme.of(context).primaryColor,
-                    child: Icon(
-                      Icons.arrow_back_ios_rounded,
-                      size: 24.r,
+                      Theme.of(context).primaryColor,
                     ),
+                    backgroundColor: Theme.of(context).primaryColor,
+                    child: Icon(Icons.arrow_back_ios_rounded, size: 24.r),
                   ),
                   Padding(
-                    padding:
-                        REdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    padding: REdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
                     child: Text(AppLocalizations.of(context)!.view_all),
                   ),
                 ],

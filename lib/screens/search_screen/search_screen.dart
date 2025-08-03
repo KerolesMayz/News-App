@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news/provider/articles_provider.dart';
+import 'package:news/provider/articles_view_model.dart';
 import 'package:news/provider/search_provider.dart';
 import 'package:news/screens/home_screen/sources_view/widgets/custom_list_view.dart';
 import 'package:news/screens/search_screen/widgets/custom_search_bar.dart';
@@ -82,10 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       return CustomListView(articles: state.article);
                     case ArticlesLoadingState():
                       return const Expanded(
-                        child: Center(
-                          child: CircularProgressIndicator(
-                          ),
-                        ),
+                        child: Center(child: CircularProgressIndicator()),
                       );
                     case ArticlesErrorState():
                       return ErrorStateWidget(

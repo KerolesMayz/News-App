@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../models/category_model.dart';
+import '../../../data/models/category_model.dart';
+import '../../../l10n/app_localizations.dart';
 import 'widgets/card_widget/category_item.dart';
 
 class CategoriesView extends StatelessWidget {
@@ -22,18 +21,19 @@ class CategoriesView extends StatelessWidget {
           ),
           Expanded(
             child: ListView.separated(
-                separatorBuilder: (context, index) {
-                  return SizedBox(
-                    height: 16.h,
-                  );
-                },
-                padding: REdgeInsets.symmetric(vertical: 16),
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  return CategoryItem(
-                      index: index, newsCategory: categories[index]);
-                }),
-          )
+              separatorBuilder: (context, index) {
+                return SizedBox(height: 16.h);
+              },
+              padding: REdgeInsets.symmetric(vertical: 16),
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                return CategoryItem(
+                  index: index,
+                  newsCategory: categories[index],
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

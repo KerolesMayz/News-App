@@ -28,9 +28,10 @@ class ErrorStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Text(
-      extractErrorMessage(),
-      style: Theme.of(context).textTheme.titleLarge,
-    ));
+      child: Text(
+        extractErrorMessage(),
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
+    );
   }
 }

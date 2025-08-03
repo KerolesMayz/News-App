@@ -11,19 +11,11 @@ class CustomDrawerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
-          icon,
-          size: 24.r,
-        ),
-        SizedBox(
-          width: 12.w,
-        ),
+        Icon(icon, size: 24.r),
+        SizedBox(width: 12.w),
         Expanded(
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-        )
+          child: Text(text, style: Theme.of(context).textTheme.headlineMedium),
+        ),
       ],
     );
   }

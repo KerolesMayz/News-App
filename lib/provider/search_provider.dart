@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
-import '../api_services/api_services.dart';
 import '../core/result.dart';
-import '../models/articles_response/article.dart';
-import 'articles_provider.dart';
+import '../data/api_services/api_services.dart';
+import '../data/models/articles_response/article.dart';
+import 'articles_view_model.dart';
 
 class SearchProvider extends ChangeNotifier {
   ArticlesState state = ArticlesLoadingState();
