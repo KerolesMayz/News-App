@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/data/api_services/api_services.dart';
+import 'package:news/data/data_source_implementation/articles_data_source.dart';
 import 'package:news/data/data_source_implementation/sources_data_source.dart';
+import 'package:news/data/repository_implementation/articles_repository.dart';
 import 'package:news/data/repository_implementation/sources_repository.dart';
 import 'package:news/provider/articles_view_model.dart';
 import 'package:news/provider/sources_view_model.dart';
 import 'package:news/screens/home_screen/sources_view/widgets/custom_list_view.dart';
 import 'package:news/screens/home_screen/sources_view/widgets/custom_tab_bar.dart';
 import 'package:provider/provider.dart';
+
 import '../../../core/widgets/error_state_widget.dart';
-import '../../../data/models/category_model.dart';
+import '../../../data/models/category_model/category_model.dart';
 import '../../../data/models/sources_response/source.dart';
 
 class SourcesView extends StatefulWidget {
@@ -41,7 +44,13 @@ class _SourcesViewState extends State<SourcesView> {
         ),
       ),
     );
-    _articlesProvider = ArticlesViewModel();
+    _articlesProvider = ArticlesViewModel(
+      repository: ArticlesRepositoryImplementation(
+        dataSource: ArticlesApiDataSourceImplementation(
+          apiServices: ApiServices(),
+        ),
+      ),
+    );
     await _sourcesViewProvider.loadSources(widget.category);
     await _articlesProvider.loadArticles(_getFirstSource());
   }
@@ -92,7 +101,9 @@ class _SourcesViewState extends State<SourcesView> {
               ArticlesState state = articlesProvider.state;
               switch (state) {
                 case ArticlesSuccessState():
-                  return CustomListView(articles: state.article);
+                  return CustomListView(
+                    articles: state.article,
+                  );
                 case ArticlesLoadingState():
                   return const Expanded(
                     child: Center(child: CircularProgressIndicator()),

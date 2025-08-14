@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/screens/home_screen/categories_view/widgets/card_widget/view_all_button.dart';
-import '../../../../../data/models/category_model.dart';
+
+import '../../../../../data/models/category_model/category_model.dart';
 
 class CategoryItem extends StatelessWidget {
   const CategoryItem({

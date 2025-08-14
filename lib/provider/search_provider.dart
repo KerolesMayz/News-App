@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:news/repository_contract/search_repository.dart';
+
 import '../core/result.dart';
-import '../data/api_services/api_services.dart';
 import '../data/models/articles_response/article.dart';
 import 'articles_view_model.dart';
 
 class SearchProvider extends ChangeNotifier {
   ArticlesState state = ArticlesLoadingState();
+  SearchRepository repository;
+
+  SearchProvider({required this.repository});
 
   void emit(ArticlesState newState) {
     state = newState;
@@ -20,7 +24,8 @@ class SearchProvider extends ChangeNotifier {
     if (query.trim() == '') {
       emit(ArticlesSuccessState(article: []));
     } else {
-      Result<List<Article>> result = await ApiServices.search(query);
+      Result<List<Article>> result = await repository.getSearchedArticles(
+          query);
       switch (result) {
         case Success<List<Article>>():
           emit(ArticlesSuccessState(article: result.data));

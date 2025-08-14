@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/core/constants_manager.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../data/models/category_model.dart';
+import '../../../../../data/models/category_model/category_model.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../../../../provider/home_provider.dart';
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news/core/result.dart';
 import 'package:news/repository_contract/sources_repository.dart';
-import '../data/models/category_model.dart';
+
+import '../data/models/category_model/category_model.dart';
 import '../data/models/sources_response/source.dart';
 
 class SourcesViewModel extends ChangeNotifier {

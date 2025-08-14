@@ -3,7 +3,7 @@ import 'package:news/screens/home_screen/categories_view/categories_view.dart';
 import 'package:news/screens/home_screen/sources_view/sources_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../data/models/category_model.dart';
+import '../data/models/category_model/category_model.dart';
 
 class HomeProvider extends ChangeNotifier {
   Widget view = const CategoriesView();

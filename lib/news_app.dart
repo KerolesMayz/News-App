@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/config/theme/theme_manager.dart';
-import 'package:news/core/extension/context_extension.dart';
 import 'package:news/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+
 import 'core/routes_manager/routes_manager.dart';
 import 'provider/home_provider.dart';
 
@@ -14,7 +14,7 @@ class NewsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var homeProvider = Provider.of<HomeProvider>(context);
     return ScreenUtilInit(
-      designSize: Size(context.width, context.height),
+      designSize: Size(393, 852),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => MaterialApp(

@@ -1,6 +1,6 @@
 import 'package:news/core/result.dart';
 import 'package:news/data/data_source_contract/sources_data_source.dart';
-import 'package:news/data/models/category_model.dart';
+import 'package:news/data/models/category_model/category_model.dart';
 import 'package:news/data/models/sources_response/source.dart';
 import 'package:news/repository_contract/sources_repository.dart';
 

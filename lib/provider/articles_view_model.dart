@@ -1,19 +1,24 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:news/repository_contract/articles_repository.dart';
+
 import '../core/result.dart';
-import '../data/api_services/api_services.dart';
 import '../data/models/articles_response/article.dart';
 import '../data/models/sources_response/source.dart';
 
 class ArticlesViewModel extends ChangeNotifier {
   ArticlesState state = ArticlesLoadingState();
+  ArticlesRepository repository;
+
+  ArticlesViewModel({required this.repository});
 
   void emit(ArticlesState newState) {
     state = newState;
     notifyListeners();
   }
 
-  Future<void> loadArticles(Source source) async {
+  Future<void> loadArticles(Source source, {int page = 1}) async {
     if (state != ArticlesLoadingState()) {
       state = ArticlesLoadingState();
       notifyListeners();
@@ -22,7 +27,7 @@ class ArticlesViewModel extends ChangeNotifier {
       emit(ArticlesErrorState(exception: const HttpException('bad request')));
       return;
     }
-    Result<List<Article>> result = await ApiServices.getArticles(source);
+    Result<List<Article>> result = await repository.getArticles(source, page);
     switch (result) {
       case Success<List<Article>>():
         emit(ArticlesSuccessState(article: result.data));

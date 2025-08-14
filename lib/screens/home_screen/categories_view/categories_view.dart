@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../data/models/category_model.dart';
+
+import '../../../data/models/category_model/category_model.dart';
 import '../../../l10n/app_localizations.dart';
 import 'widgets/card_widget/category_item.dart';
 

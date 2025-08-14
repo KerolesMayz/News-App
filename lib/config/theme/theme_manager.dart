@@ -111,7 +111,7 @@ class ThemeManager {
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         padding: EdgeInsets.zero,
-        backgroundColor: ColorsManager.white.withOpacity(0.5),
+        backgroundColor: ColorsManager.white.withValues(alpha: 0.5),
         foregroundColor: ColorsManager.black17,
         textStyle: GoogleFonts.inter(
           fontWeight: FontWeight.w500,
@@ -255,7 +255,7 @@ class ThemeManager {
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         padding: EdgeInsets.zero,
-        backgroundColor: ColorsManager.black17.withOpacity(0.5),
+        backgroundColor: ColorsManager.black17.withValues(alpha: (0.5)),
         foregroundColor: ColorsManager.white,
         textStyle: GoogleFonts.inter(
           fontWeight: FontWeight.w500,
