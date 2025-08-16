@@ -67,7 +67,7 @@ class ApiServices {
     }
   }
 
-  Future<Result<List<Article>>> search(String q, {required int page}) async {
+  Future<Result<List<Article>>> search(String q, int page) async {
     Map<String, dynamic> queryParameters = {
       'apiKey': _apiKey,
       'q': q,

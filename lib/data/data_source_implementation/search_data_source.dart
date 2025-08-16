@@ -9,7 +9,7 @@ class SearchApiDataSourceImplementation implements SearchDataSource {
   SearchApiDataSourceImplementation({required this.apiServices});
 
   @override
-  Future<Result<List<Article>>> getSearchedArticles(String q) {
-    return apiServices.search(q, page: 1);
+  Future<Result<List<Article>>> getSearchedArticles(String q, int page) {
+    return apiServices.search(q, page);
   }
 }

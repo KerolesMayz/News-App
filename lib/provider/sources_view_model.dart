@@ -4,6 +4,7 @@ import 'package:news/repository_contract/sources_repository.dart';
 
 import '../data/models/category_model/category_model.dart';
 import '../data/models/sources_response/source.dart';
+import '../data/models/states_models/sources_state.dart';
 
 class SourcesViewModel extends ChangeNotifier {
   SourcesState state = SourcesLoadingState();
@@ -31,23 +32,3 @@ class SourcesViewModel extends ChangeNotifier {
   }
 }
 
-sealed class SourcesState {}
-
-class SourcesSuccessState extends SourcesState {
-  List<Source> sources;
-
-  SourcesSuccessState({required this.sources});
-}
-
-class SourcesLoadingState extends SourcesState {
-  String? loadingMsg;
-
-  SourcesLoadingState({this.loadingMsg});
-}
-
-class SourcesErrorState extends SourcesState {
-  ServerError? serverError;
-  Exception? exception;
-
-  SourcesErrorState({this.serverError, this.exception});
-}

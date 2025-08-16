@@ -9,8 +9,8 @@ class SearchRepositoryImplementation implements SearchRepository {
   SearchRepositoryImplementation({required this.dataSource});
 
   @override
-  Future<Result<List<Article>>> getSearchedArticles(String q) async {
-    var result = await dataSource.getSearchedArticles(q);
+  Future<Result<List<Article>>> getSearchedArticles(String q, int page) async {
+    var result = await dataSource.getSearchedArticles(q, page);
     switch (result) {
       case Success<List<Article>>():
         return Success(data: result.data);

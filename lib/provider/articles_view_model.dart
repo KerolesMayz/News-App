@@ -6,10 +6,12 @@ import 'package:news/repository_contract/articles_repository.dart';
 import '../core/result.dart';
 import '../data/models/articles_response/article.dart';
 import '../data/models/sources_response/source.dart';
+import '../data/models/states_models/articles_state.dart';
 
 class ArticlesViewModel extends ChangeNotifier {
   ArticlesState state = ArticlesLoadingState();
   ArticlesRepository repository;
+  List<Article> articles = [];
 
   ArticlesViewModel({required this.repository});
 
@@ -19,8 +21,8 @@ class ArticlesViewModel extends ChangeNotifier {
   }
 
   Future<void> loadArticles(Source source, {int page = 1}) async {
-    if (state != ArticlesLoadingState()) {
-      state = ArticlesLoadingState();
+    if (state is! ArticlesLoadingState && page == 1) {
+      emit(ArticlesLoadingState());
       notifyListeners();
     }
     if (source.id == null) {
@@ -30,6 +32,11 @@ class ArticlesViewModel extends ChangeNotifier {
     Result<List<Article>> result = await repository.getArticles(source, page);
     switch (result) {
       case Success<List<Article>>():
+        if (page == 1) {
+          articles = result.data;
+        } else {
+          articles.addAll(result.data);
+        }
         emit(ArticlesSuccessState(article: result.data));
       case ServerError<List<Article>>():
         emit(ArticlesErrorState(serverError: result));
@@ -37,25 +44,4 @@ class ArticlesViewModel extends ChangeNotifier {
         emit(ArticlesErrorState(exception: result.exception));
     }
   }
-}
-
-sealed class ArticlesState {}
-
-class ArticlesSuccessState extends ArticlesState {
-  List<Article> article;
-
-  ArticlesSuccessState({required this.article});
-}
-
-class ArticlesLoadingState extends ArticlesState {
-  String? loadingMsg;
-
-  ArticlesLoadingState({this.loadingMsg});
-}
-
-class ArticlesErrorState extends ArticlesState {
-  ServerError? serverError;
-  Exception? exception;
-
-  ArticlesErrorState({this.serverError, this.exception});
 }

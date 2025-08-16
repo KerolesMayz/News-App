@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news/core/custom_clickable_card.dart';
 import 'package:news/data/api_services/api_services.dart';
 import 'package:news/data/data_source_implementation/articles_data_source.dart';
 import 'package:news/data/data_source_implementation/sources_data_source.dart';
@@ -14,6 +15,8 @@ import 'package:provider/provider.dart';
 import '../../../core/widgets/error_state_widget.dart';
 import '../../../data/models/category_model/category_model.dart';
 import '../../../data/models/sources_response/source.dart';
+import '../../../data/models/states_models/articles_state.dart';
+import '../../../data/models/states_models/sources_state.dart';
 
 class SourcesView extends StatefulWidget {
   const SourcesView({super.key, required this.category});
@@ -27,9 +30,33 @@ class SourcesView extends StatefulWidget {
 class _SourcesViewState extends State<SourcesView> {
   late SourcesViewModel _sourcesViewProvider;
   late ArticlesViewModel _articlesProvider;
+  late ScrollController _controller;
+  int page = 1;
+  bool isLoading = false;
+  Source currentSource = Source();
+
+  void listener() async {
+    if (isLoading) return;
+    if (_controller.position.pixels >=
+            _controller.position.maxScrollExtent - 200 &&
+        _articlesProvider.state is ArticlesSuccessState) {
+      if (_articlesProvider.state is ArticlesSuccessState) {
+        setState(() {
+          isLoading = true;
+        });
+        page++;
+        await _articlesProvider.loadArticles(currentSource, page: page);
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
 
   Source _getFirstSource() {
     if (_sourcesViewProvider.state.runtimeType == SourcesSuccessState) {
+      currentSource =
+          (_sourcesViewProvider.state as SourcesSuccessState).sources[0];
       return (_sourcesViewProvider.state as SourcesSuccessState).sources[0];
     } else {
       return Source();
@@ -37,6 +64,8 @@ class _SourcesViewState extends State<SourcesView> {
   }
 
   void _loadData() async {
+    _controller = ScrollController();
+    _controller.addListener(listener);
     _sourcesViewProvider = SourcesViewModel(
       repository: SourcesRepositoryImplementation(
         dataSource: SourcesApiDataSourceImplementation(
@@ -59,6 +88,14 @@ class _SourcesViewState extends State<SourcesView> {
   void initState() {
     super.initState();
     _loadData();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+    _articlesProvider.dispose();
+    _sourcesViewProvider.dispose();
   }
 
   @override
@@ -101,9 +138,28 @@ class _SourcesViewState extends State<SourcesView> {
               ArticlesState state = articlesProvider.state;
               switch (state) {
                 case ArticlesSuccessState():
-                  return CustomListView(
-                    articles: state.article,
-                  );
+                  return articlesProvider.articles.isNotEmpty
+                      ? CustomListView(
+                          controller: _controller,
+                          itemBuilder: (context, index) {
+                            return index < articlesProvider.articles.length
+                                ? CustomClickableCard(
+                                    article: articlesProvider.articles[index],
+                                  )
+                                : Center(child: CircularProgressIndicator());
+                          },
+                          itemCount: isLoading
+                              ? articlesProvider.articles.length + 1
+                              : articlesProvider.articles.length,
+                        )
+                      : Expanded(
+                          child: Center(
+                            child: Text(
+                              'No Articles Were Found',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ),
+                        );
                 case ArticlesLoadingState():
                   return const Expanded(
                     child: Center(child: CircularProgressIndicator()),

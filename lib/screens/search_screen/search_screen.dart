@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news/core/custom_clickable_card.dart';
 import 'package:news/data/api_services/api_services.dart';
 import 'package:news/data/data_source_implementation/search_data_source.dart';
 import 'package:news/data/repository_implementation/search_repository.dart';
-import 'package:news/provider/articles_view_model.dart';
 import 'package:news/provider/search_provider.dart';
 import 'package:news/screens/home_screen/sources_view/widgets/custom_list_view.dart';
 import 'package:news/screens/search_screen/widgets/custom_search_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/widgets/error_state_widget.dart';
+import '../../data/models/states_models/articles_state.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -21,9 +22,33 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   late SearchProvider _searchProvider;
   String _searchedValue = '';
+  late ScrollController _controller;
+  int page = 1;
+  bool isLoading = false;
   late TextEditingController _searchController;
 
+  void listener() async {
+    if (isLoading) return;
+    if (_controller.position.pixels >=
+            _controller.position.maxScrollExtent - 200 &&
+        _searchProvider.state is ArticlesSuccessState) {
+      if (_searchProvider.state is ArticlesSuccessState) {
+        setState(() {
+          isLoading = true;
+        });
+        page++;
+        await _searchProvider.loadArticles(_searchedValue, page: page);
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
+
   Future<void> _loadData() async {
+    _controller = ScrollController();
+    _searchController = TextEditingController();
+    _controller.addListener(listener);
     _searchProvider = SearchProvider(
       repository: SearchRepositoryImplementation(
         dataSource: SearchApiDataSourceImplementation(
@@ -31,7 +56,6 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       ),
     );
-    _searchController = TextEditingController();
     await _searchProvider.loadArticles('');
   }
 
@@ -63,6 +87,8 @@ class _SearchScreenState extends State<SearchScreen> {
   void dispose() {
     super.dispose();
     _searchController.dispose();
+    _controller.dispose();
+    _searchProvider.dispose();
   }
 
   @override
@@ -88,7 +114,30 @@ class _SearchScreenState extends State<SearchScreen> {
                   ArticlesState state = searchProvider.state;
                   switch (state) {
                     case ArticlesSuccessState():
-                      return CustomListView(articles: state.article,);
+                      return searchProvider.articles.isNotEmpty
+                          ? CustomListView(
+                              controller: _controller,
+                              itemCount: isLoading
+                                  ? searchProvider.articles.length + 1
+                                  : searchProvider.articles.length,
+                              itemBuilder: (context, index) {
+                                return index < searchProvider.articles.length
+                                    ? CustomClickableCard(
+                                        article: searchProvider.articles[index],
+                                      )
+                                    : Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                              },
+                            )
+                          : Expanded(
+                              child: Center(
+                                child: Text(
+                                  'No Articles Were Found',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
+                              ),
+                            );
                     case ArticlesLoadingState():
                       return const Expanded(
                         child: Center(child: CircularProgressIndicator()),
