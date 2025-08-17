@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news/core/constants_manager.dart';
 import 'package:news/core/widgets/custom_button.dart';
+import 'package:news/domain/entities/article_entity.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../data/models/articles_response/article.dart';
 import '../../../../l10n/app_localizations.dart';
 
 class ViewFullArticle extends StatelessWidget {
   const ViewFullArticle({super.key, required this.article});
 
-  final Article article;
+  final ArticleEntity article;
 
   void _launchUrl(String url) async {
     Uri url = Uri.parse(article.url!);

@@ -6,6 +6,9 @@ import 'package:news/data/data_source_implementation/articles_data_source.dart';
 import 'package:news/data/data_source_implementation/sources_data_source.dart';
 import 'package:news/data/repository_implementation/articles_repository.dart';
 import 'package:news/data/repository_implementation/sources_repository.dart';
+import 'package:news/domain/entities/source_entity.dart';
+import 'package:news/domain/usecases/get_articles_use_case.dart';
+import 'package:news/domain/usecases/get_sources_use_case.dart';
 import 'package:news/provider/articles_view_model.dart';
 import 'package:news/provider/sources_view_model.dart';
 import 'package:news/screens/home_screen/sources_view/widgets/custom_list_view.dart';
@@ -14,7 +17,6 @@ import 'package:provider/provider.dart';
 
 import '../../../core/widgets/error_state_widget.dart';
 import '../../../data/models/category_model/category_model.dart';
-import '../../../data/models/sources_response/source.dart';
 import '../../../data/models/states_models/articles_state.dart';
 import '../../../data/models/states_models/sources_state.dart';
 
@@ -33,7 +35,7 @@ class _SourcesViewState extends State<SourcesView> {
   late ScrollController _controller;
   int page = 1;
   bool isLoading = false;
-  Source currentSource = Source();
+  SourceEntity currentSource = SourceEntity();
 
   void listener() async {
     if (isLoading) return;
@@ -53,13 +55,13 @@ class _SourcesViewState extends State<SourcesView> {
     }
   }
 
-  Source _getFirstSource() {
+  SourceEntity _getFirstSource() {
     if (_sourcesViewProvider.state.runtimeType == SourcesSuccessState) {
       currentSource =
           (_sourcesViewProvider.state as SourcesSuccessState).sources[0];
       return (_sourcesViewProvider.state as SourcesSuccessState).sources[0];
     } else {
-      return Source();
+      return SourceEntity();
     }
   }
 
@@ -67,16 +69,20 @@ class _SourcesViewState extends State<SourcesView> {
     _controller = ScrollController();
     _controller.addListener(listener);
     _sourcesViewProvider = SourcesViewModel(
-      repository: SourcesRepositoryImplementation(
-        dataSource: SourcesApiDataSourceImplementation(
-          apiServices: ApiServices(),
+      repository: GetSourcesUseCase(
+        repository: SourcesRepositoryImplementation(
+          dataSource: SourcesApiDataSourceImplementation(
+            apiServices: ApiServices(),
+          ),
         ),
       ),
     );
     _articlesProvider = ArticlesViewModel(
-      repository: ArticlesRepositoryImplementation(
-        dataSource: ArticlesApiDataSourceImplementation(
-          apiServices: ApiServices(),
+      articlesUseCase: GetArticlesUseCase(
+        repository: ArticlesRepositoryImplementation(
+          dataSource: ArticlesApiDataSourceImplementation(
+            apiServices: ApiServices(),
+          ),
         ),
       ),
     );

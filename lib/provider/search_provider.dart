@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:news/repository_contract/search_repository.dart';
+import 'package:news/domain/entities/article_entity.dart';
+import 'package:news/domain/usecases/get_searched_articles_use_case.dart';
 
 import '../core/result.dart';
-import '../data/models/articles_response/article.dart';
 import '../data/models/states_models/articles_state.dart';
 
 class SearchProvider extends ChangeNotifier {
   ArticlesState state = ArticlesLoadingState();
-  SearchRepository repository;
-  List<Article> articles = [];
+  GetSearchedArticlesUseCase repository;
+  List<ArticleEntity> articles = [];
 
   SearchProvider({required this.repository});
 
@@ -25,19 +25,18 @@ class SearchProvider extends ChangeNotifier {
     if (query.trim() == '') {
       emit(ArticlesSuccessState(article: []));
     } else {
-      Result<List<Article>> result = await repository.getSearchedArticles(
-          query, page);
+      Result<List<ArticleEntity>> result = await repository.invoke(query, page);
       switch (result) {
-        case Success<List<Article>>():
+        case Success<List<ArticleEntity>>():
           if (page == 1) {
             articles = result.data;
           } else {
             articles.addAll(result.data);
           }
           emit(ArticlesSuccessState(article: result.data));
-        case ServerError<List<Article>>():
+        case ServerError<List<ArticleEntity>>():
           emit(ArticlesErrorState(serverError: result));
-        case GeneralException<List<Article>>():
+        case GeneralException<List<ArticleEntity>>():
           emit(ArticlesErrorState(exception: result.exception));
       }
     }

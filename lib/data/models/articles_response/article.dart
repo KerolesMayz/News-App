@@ -1,3 +1,5 @@
+import 'package:news/domain/entities/article_entity.dart';
+
 import '../sources_response/source.dart';
 
 class Article {
@@ -46,4 +48,13 @@ class Article {
     map['content'] = content;
     return map;
   }
+
+  ArticleEntity toArticleEntity() => ArticleEntity(
+    author: author,
+    title: title,
+    description: description,
+    url: url,
+    urlToImage: urlToImage,
+    publishedAt: publishedAt,
+  );
 }

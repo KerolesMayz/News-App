@@ -1,26 +1,26 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:news/repository_contract/articles_repository.dart';
+import 'package:news/domain/entities/article_entity.dart';
+import 'package:news/domain/entities/source_entity.dart';
+import 'package:news/domain/usecases/get_articles_use_case.dart';
 
 import '../core/result.dart';
-import '../data/models/articles_response/article.dart';
-import '../data/models/sources_response/source.dart';
 import '../data/models/states_models/articles_state.dart';
 
 class ArticlesViewModel extends ChangeNotifier {
   ArticlesState state = ArticlesLoadingState();
-  ArticlesRepository repository;
-  List<Article> articles = [];
+  GetArticlesUseCase articlesUseCase;
+  List<ArticleEntity> articles = [];
 
-  ArticlesViewModel({required this.repository});
+  ArticlesViewModel({required this.articlesUseCase});
 
   void emit(ArticlesState newState) {
     state = newState;
     notifyListeners();
   }
 
-  Future<void> loadArticles(Source source, {int page = 1}) async {
+  Future<void> loadArticles(SourceEntity source, {int page = 1}) async {
     if (state is! ArticlesLoadingState && page == 1) {
       emit(ArticlesLoadingState());
       notifyListeners();
@@ -29,18 +29,19 @@ class ArticlesViewModel extends ChangeNotifier {
       emit(ArticlesErrorState(exception: const HttpException('bad request')));
       return;
     }
-    Result<List<Article>> result = await repository.getArticles(source, page);
+    Result<List<ArticleEntity>> result = await articlesUseCase.invoke(
+        source, page);
     switch (result) {
-      case Success<List<Article>>():
+      case Success<List<ArticleEntity>>():
         if (page == 1) {
           articles = result.data;
         } else {
           articles.addAll(result.data);
         }
         emit(ArticlesSuccessState(article: result.data));
-      case ServerError<List<Article>>():
+      case ServerError<List<ArticleEntity>>():
         emit(ArticlesErrorState(serverError: result));
-      case GeneralException<List<Article>>():
+      case GeneralException<List<ArticleEntity>>():
         emit(ArticlesErrorState(exception: result.exception));
     }
   }

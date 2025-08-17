@@ -4,6 +4,7 @@ import 'package:news/core/custom_clickable_card.dart';
 import 'package:news/data/api_services/api_services.dart';
 import 'package:news/data/data_source_implementation/search_data_source.dart';
 import 'package:news/data/repository_implementation/search_repository.dart';
+import 'package:news/domain/usecases/get_searched_articles_use_case.dart';
 import 'package:news/provider/search_provider.dart';
 import 'package:news/screens/home_screen/sources_view/widgets/custom_list_view.dart';
 import 'package:news/screens/search_screen/widgets/custom_search_bar.dart';
@@ -50,9 +51,11 @@ class _SearchScreenState extends State<SearchScreen> {
     _searchController = TextEditingController();
     _controller.addListener(listener);
     _searchProvider = SearchProvider(
-      repository: SearchRepositoryImplementation(
-        dataSource: SearchApiDataSourceImplementation(
-          apiServices: ApiServices(),
+      repository: GetSearchedArticlesUseCase(
+        repository: SearchRepositoryImplementation(
+          dataSource: SearchApiDataSourceImplementation(
+            apiServices: ApiServices(),
+          ),
         ),
       ),
     );
@@ -73,6 +76,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   void _onCancelButtonPress() {
     setState(() {
+      _searchedValue = '';
       _searchController.text = '';
     });
   }

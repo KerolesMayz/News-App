@@ -1,3 +1,5 @@
+import 'package:news/domain/entities/source_entity.dart';
+
 class Source {
   String? id;
   String? name;
@@ -38,4 +40,6 @@ class Source {
     map['country'] = country;
     return map;
   }
+
+  SourceEntity toSourceEntity() => SourceEntity(name: name, id: id);
 }

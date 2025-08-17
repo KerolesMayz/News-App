@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:news/core/result.dart';
+import 'package:news/domain/entities/source_entity.dart';
 
 import '../models/articles_response/article.dart';
 import '../models/articles_response/articles_response.dart';
@@ -39,8 +40,7 @@ class ApiServices {
     }
   }
 
-  Future<Result<List<Article>>> getArticles(
-    Source source, {
+  Future<Result<List<Article>>> getArticles(SourceEntity source, {
     int page = 1,
   }) async {
     Map<String, dynamic> queryParameters = {

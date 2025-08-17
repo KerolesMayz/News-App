@@ -1,10 +1,11 @@
+import 'package:news/domain/entities/source_entity.dart';
+
 import '../../../core/result.dart';
-import '../sources_response/source.dart';
 
 sealed class SourcesState {}
 
 class SourcesSuccessState extends SourcesState {
-  List<Source> sources;
+  List<SourceEntity> sources;
 
   SourcesSuccessState({required this.sources});
 }

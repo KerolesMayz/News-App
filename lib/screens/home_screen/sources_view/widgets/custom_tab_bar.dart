@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../../../../data/models/sources_response/source.dart';
+import 'package:news/domain/entities/source_entity.dart';
 
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar({super.key, required this.sources, required this.onTap});
 
-  final List<Source> sources;
+  final List<SourceEntity> sources;
   final void Function(int) onTap;
 
   @override

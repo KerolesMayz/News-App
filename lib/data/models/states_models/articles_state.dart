@@ -1,10 +1,11 @@
+import 'package:news/domain/entities/article_entity.dart';
+
 import '../../../core/result.dart';
-import '../articles_response/article.dart';
 
 sealed class ArticlesState {}
 
 class ArticlesSuccessState extends ArticlesState {
-  List<Article> article;
+  List<ArticleEntity> article;
 
   ArticlesSuccessState({required this.article});
 }
